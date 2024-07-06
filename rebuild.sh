@@ -1,1 +1,1 @@
-sudo cp configuration.nix /etc/nixos/configuration.nix && sudo nixos-rebuild switch
+sudo cp *.nix /etc/nixos/ && sudo nixos-rebuild switch --impure
