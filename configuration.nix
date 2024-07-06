@@ -11,6 +11,14 @@
     keyMap = "fi";
   };
 
+  users.users.laged = {
+    isNormalUser = true;
+    group = "laged";
+    extraGroups = [ "wheel" ];
+  };
+
+  users.groups.laged = { };
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   sound.enable = true;
