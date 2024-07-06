@@ -19,6 +19,19 @@
     enableCompletion = true;
   };
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    plugins = with pkgs.vimPlugins; [
+      catppuccin-nvim
+    ];
+    extraConfig = ''
+      set number relativenumber
+    ''; 
+  };
+  
 #  programs.alacritty = {
 #    enable = true;
 #    settings = {
