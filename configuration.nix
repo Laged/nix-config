@@ -20,10 +20,17 @@
   users.groups.laged = { };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  
   sound.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = true;
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/laged/nix-config";
+  };
 
   programs.zsh.enable = true;
   environment.shells = [ pkgs.zsh ];
@@ -33,5 +40,6 @@
     vim
     git
     gh
+    nh
 ];
 }

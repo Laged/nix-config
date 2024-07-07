@@ -19,31 +19,13 @@
     enableCompletion = true;
   };
 
-  programs.neovim = {
+  programs.vim = {
     enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      catppuccin-nvim
-    ];
-    extraConfig = ''
-      set number relativenumber
-    ''; 
+    settings = {
+      relativenumber = true;
+      number = true;
+    };
   };
-  
-#  programs.alacritty = {
-#    enable = true;
-#    settings = {
-#      env.TERM = "xterm-256color";
-#      font = {
-#        size = 12;
-#        draw_bold_text_with_bright_colors = true;
-#      };
-#      scrolling.multiplier = 5;
-#      selection.save_to_clipboard = true;
-#    };
-#  };
 
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
