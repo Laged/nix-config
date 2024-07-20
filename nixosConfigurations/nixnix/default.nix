@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   system.stateVersion = "24.05";
   time.timeZone = "Europe/Helsinki";
@@ -6,15 +11,22 @@
   console = {
     keyMap = "fi";
   };
-
   users = {
     users.laged = {
       isNormalUser = true;
       uid = 1000;
       group = "laged";
       initialPassword = "matti";
-      extraGroups = [ "wheel" "video" "input" ];
+      extraGroups = [
+        "wheel"
+        "video"
+        "input"
+      ];
       shell = pkgs.zsh;
+      packages = with pkgs; [
+        kitty
+        firefox
+      ]; 
     };
     groups.laged = {
       gid = 1000;
@@ -24,11 +36,8 @@
     enable = lib.mkDefault true;
     wheelNeedsPassword = lib.mkForce false;
   };
-  boot.kernelParams = [
-    "boot.shell_on_fail"
-  ];
+  boot.kernelParams = [ "boot.shell_on_fail" ];
   services.dbus.enable = true;
-
   programs = {
     zsh.enable = true;
     git.enable = true;
@@ -37,7 +46,6 @@
   };
   environment.shells = [ pkgs.zsh ];
   users.defaultUserShell = pkgs.zsh;
-
   hardware.enableRedistributableFirmware = true;
   hardware.opengl = {
     enable = true;
@@ -48,6 +56,5 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaSettings = true;
-
   services.getty.autologinUser = "laged";
 }

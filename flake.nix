@@ -38,7 +38,8 @@
     wayland.url = "github:nix-community/nixpkgs-wayland";
   };
 
-  outputs = { self, ... }@inputs:
+  outputs =
+    { self, ... }@inputs:
 
     inputs.flake-parts.lib.mkFlake { inherit inputs; } rec {
 
@@ -48,52 +49,57 @@
         inputs.treefmt-nix.flakeModule
       ];
 
-      perSystem = { pkgs, config, system, ... }: {
+      perSystem =
+        {
+          pkgs,
+          config,
+          system,
+          ...
+        }:
+        {
 
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [
-            self.overlays.default
-          ];
-          config = { };
-        };
-
-        overlayAttrs = {
-          inherit (config.packages);
-        };
-
-        treefmt.config = {
-          projectRootFile = "flake.nix";
-          flakeFormatter = true;
-          flakeCheck = true;
-          programs = {
-            nixpkgs-fmt.enable = true;
-            deadnix.enable = true;
-            statix.enable = true;
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ self.overlays.default ];
+            config = { };
           };
-          settings.global.excludes = [ "*/flake.nix" ];
-        };
 
-        devShells = {
-          default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              cpio
-              git
-              jq
-              nix
-              ripgrep
-              rsync
-              sops
-              ssh-to-age
-              zstd
-            ];
+          overlayAttrs = {
+            inherit (config.packages);
+          };
+
+          treefmt.config = {
+            projectRootFile = "flake.nix";
+            flakeFormatter = true;
+            flakeCheck = true;
+            programs = {
+              nixpkgs-fmt.enable = true;
+              deadnix.enable = true;
+              statix.enable = true;
+            };
+            settings.global.excludes = [ "*/flake.nix" ];
+          };
+
+          devShells = {
+            default = pkgs.mkShell {
+              nativeBuildInputs = with pkgs; [
+                cpio
+                git
+                jq
+                nix
+                ripgrep
+                rsync
+                sops
+                ssh-to-age
+                zstd
+              ];
+            };
+          };
+
+          packages = {
+            "nixnix" = flake.nixosConfigurations.nixnix.config.system.build.kexecTree;
           };
         };
-
-        packages = {
-          "nixnix" = flake.nixosConfigurations.nixnix.config.system.build.kexecTree;
-        };
-      };
 
       flake =
         let
@@ -101,7 +107,9 @@
 
           nixnix = {
             system = "x86_64-linux";
-            specialArgs = { inherit inputs outputs; };
+            specialArgs = {
+              inherit inputs outputs;
+            };
             modules = [
               ./nixosConfigurations/nixnix
               ./nix-settings.nix
@@ -109,13 +117,9 @@
               inputs.homestakeros-base.nixosModules.kexecTree
               inputs.sops-nix.nixosModules.sops
               {
-                home-manager.sharedModules = [
-                  inputs.nixvim.homeManagerModules.nixvim
-                ];
+                home-manager.sharedModules = [ inputs.nixvim.homeManagerModules.nixvim ];
                 home-manager.useGlobalPkgs = true;
-                nixpkgs.overlays = [
-                  inputs.wayland.overlay
-                ];
+                nixpkgs.overlays = [ inputs.wayland.overlay ];
               }
             ];
           };
@@ -123,9 +127,9 @@
         in
         {
 
-          nixosConfigurations = with inputs.nixpkgs.lib; {
-            "nixnix" = nixosSystem nixnix;
-          } // (with inputs.nixpkgs-stable-patched.lib; { });
+          nixosConfigurations =
+            with inputs.nixpkgs.lib;
+            { "nixnix" = nixosSystem nixnix; } // (with inputs.nixpkgs-stable-patched.lib; { });
         };
     };
 }
