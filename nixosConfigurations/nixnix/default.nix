@@ -7,13 +7,19 @@
     keyMap = "fi";
   };
 
-  users.users.laged = {
-    isNormalUser = true;
-    group = "laged";
-    extraGroups = [ "wheel" "video" "input" ];
+  users = {
+    users.laged = {
+      isNormalUser = true;
+      uid = 1000;
+      group = "laged";
+      initialPassword = "matti";
+      extraGroups = [ "wheel" "video" "input" ];
+      shell = pkgs.zsh;
+    };
+    groups.laged = {
+      gid = 1000;
+    };
   };
-
-  users.groups.laged = { };
   security.sudo = {
     enable = lib.mkDefault true;
     wheelNeedsPassword = lib.mkForce false;
@@ -21,11 +27,18 @@
   boot.kernelParams = [
     "boot.shell_on_fail"
   ];
+  services.dbus.enable = true;
 
-  programs.zsh.enable = true;
+  programs = {
+    zsh.enable = true;
+    git.enable = true;
+    vim.defaultEditor = true;
+    hyprland.enable = true;
+  };
   environment.shells = [ pkgs.zsh ];
   users.defaultUserShell = pkgs.zsh;
 
+  hardware.enableRedistributableFirmware = true;
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -36,8 +49,5 @@
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaSettings = true;
 
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-  ];
+  services.getty.autologinUser = "laged";
 }
