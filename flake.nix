@@ -111,6 +111,7 @@
               inherit inputs outputs;
             };
             modules = [
+              ./homeManager/users/laged/home.nix
               ./nixosConfigurations/nixnix
               ./nix-settings.nix
               inputs.home-manager.nixosModules.home-manager
@@ -134,7 +135,9 @@
           homeConfigurations = {
             "laged@nixnix" = inputs.home-manager.lib.homeManagerConfiguration {
               pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-              extraSpecialArgs = { inherit inputs outputs; };
+              extraSpecialArgs = {
+                inherit inputs outputs;
+              };
               modules = [ ./homeManager/users/laged/home.nix ];
             };
           };
