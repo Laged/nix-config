@@ -5,7 +5,10 @@
   ...
 }:
 {
-  imports = [ ./nix-settings.nix ];
+  imports = [
+    ./nix-settings.nix
+  ];
+
   system.stateVersion = "24.05";
   time.timeZone = "Europe/Helsinki";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -46,7 +49,12 @@
     hyprland.enable = true;
   };
   environment.shells = [ pkgs.zsh ];
-  environment.systemPackages = [ pkgs.home-manager ];
+  environment.systemPackages = with pkgs; [
+    home-manager
+    systemd
+    swww
+  ];
+  fonts.packages = with pkgs; [ nerdfonts dejavu_fonts noto-fonts-emoji ];
   users.defaultUserShell = pkgs.zsh;
   hardware.enableRedistributableFirmware = true;
   hardware.opengl = {

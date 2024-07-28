@@ -20,13 +20,17 @@
     age-plugin-fido2-hmac.url = "github:jhvst/nix-config?dir=packages/age-plugin-fido2-hmac";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     homestakeros-base.url = "github:ponkila/homestakeros?dir=nixosModules/base";
     nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sounds.inputs.nixpkgs.follows = "nixpkgs";
     sounds.url = "github:jhvst/nix-config?dir=packages/sounds";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix";
+    swww.url = "github:LGFae/swww";
+    swww.inputs.nixpkgs.follows = "nixpkgs"; 
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wayland.inputs.nixpkgs.follows = "nixpkgs";
@@ -106,6 +110,7 @@
               inherit inputs outputs;
             };
             modules = [
+              inputs.stylix.nixosModules.stylix
               ./homeManager/home.nix
               ./nixosConfigurations/configuration.nix
               inputs.home-manager.nixosModules.home-manager

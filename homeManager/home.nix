@@ -12,17 +12,25 @@ let
   };
 in
   {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+      ./stylix.nix
+      ./hyprpaper.nix
+#      ./swww.nix
+    ];
 
     home-manager.users.laged = {
       home.username = "${user.name}";
       home.homeDirectory = "${user.home}";
       home.stateVersion = "24.05";
       home.packages = with pkgs; [
+        hello
         bat
         bat-extras.batdiff
         bat-extras.batwatch
         eza
+        hyprpaper
+        systemd
         wofi
         zoxide
       ];
@@ -35,10 +43,14 @@ in
           userEmail = "${user.email}"; 
         };
         eza.enable=true;
+        kitty = {
+          enable = true;
+          shellIntegration.enableZshIntegration = true;
+        };
         zsh = {
           enable = true;
           enableCompletion = true;
-          enableAutosuggestions = true;
+          autosuggestion.enable = true;
           autocd = true;
           dotDir = "./config/zsh";
           shellAliases = {
@@ -85,9 +97,18 @@ in
           };
         };
       };
+      home.file.wallpapers = {
+        source = ./wallpapers/cat.jpg;
+        target = "/home/laged/wallpapers/cat.jpg";
+        recursive = true;
+      };
+      home.file.hyprstart = {
+        source = ./.config/hypr/hyprstart.sh;
+        target = "/home/laged/.config/hypr/hyprstart.sh";
+      };
       wayland.windowManager.hyprland = {
         enable = true;
-        extraConfig = builtins.readFile ./.config/hyprland.conf;
+        extraConfig = builtins.readFile ./.config/hypr/hyprland.conf;
       };
     };
   }
