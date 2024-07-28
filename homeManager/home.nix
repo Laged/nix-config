@@ -15,8 +15,8 @@ in
     imports = [
       inputs.home-manager.nixosModules.home-manager
       ./stylix.nix
-      ./hyprpaper.nix
-#      ./swww.nix
+#      ./hyprpaper.nix
+      ./swww.nix
     ];
 
     home-manager.users.laged = {
@@ -98,8 +98,8 @@ in
         };
       };
       home.file.wallpapers = {
-        source = ./wallpapers/cat.jpg;
-        target = "/home/laged/wallpapers/cat.jpg";
+        source = ./wallpapers;
+        target = "/home/laged/wallpapers";
         recursive = true;
       };
       home.file.hyprstart = {

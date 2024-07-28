@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-#swww-daemon &
-#swww img "~/wallpapers/cat.jpg" &
-hyprpaper &
+swww-daemon &
+sleep 5
+swww img /home/laged/wallpapers/cat2.jpg
+
