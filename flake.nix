@@ -30,7 +30,7 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
     swww.url = "github:LGFae/swww";
-    swww.inputs.nixpkgs.follows = "nixpkgs"; 
+    swww.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wayland.inputs.nixpkgs.follows = "nixpkgs";
@@ -49,11 +49,10 @@
       ];
 
       perSystem =
-        {
-          pkgs,
-          config,
-          system,
-          ...
+        { pkgs
+        , config
+        , system
+        , ...
         }:
         {
 
@@ -63,9 +62,7 @@
             config = { };
           };
 
-          overlayAttrs = {
-            inherit (config.packages);
-          };
+          overlayAttrs = { };
 
           treefmt.config = {
             projectRootFile = "flake.nix";

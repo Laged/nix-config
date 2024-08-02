@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   directory = "./";
@@ -9,10 +9,10 @@ let
   pseudoRandomIndex = seed: (builtins.hashString "sha256" (toString seed)) % builtins.length jpgFiles;
 
   # Fixed seed for demonstration (change to get different results)
-  randomIndex = pseudoRandomIndex 12345; 
+  randomIndex = pseudoRandomIndex 12345;
 
   # Handle empty list case
   selectedJpgFile = if builtins.length jpgFiles > 0 then builtins.elemAt jpgFiles randomIndex else "No .jpg files found";
 in
-  "${directory}/${selectedJpgFile}"
+"${directory}/${selectedJpgFile}"
 

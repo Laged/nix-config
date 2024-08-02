@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   swwwPath = "${pkgs.swww}";
   wpPath = "${/home/laged/wallpapers}";
   wpFile = "wallpaper.jpg";
   name = "laged";
 in
-  {
+{
   home-manager.users.laged.home.packages = with pkgs; [
     swww
   ];
@@ -20,6 +20,6 @@ in
       };
       wantedBy = [ "graphical.target" ];
     };
-  };  
+  };
 }
 

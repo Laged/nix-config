@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 {
   imports = [
@@ -30,7 +29,7 @@
       packages = with pkgs; [
         kitty
         firefox
-      ]; 
+      ];
     };
     groups.laged = {
       gid = 1000;
