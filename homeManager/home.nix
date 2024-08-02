@@ -15,7 +15,6 @@ in
     imports = [
       inputs.home-manager.nixosModules.home-manager
       ./stylix.nix
-#      ./hyprpaper.nix
       ./swww.nix
     ];
 
@@ -29,9 +28,11 @@ in
         bat-extras.batdiff
         bat-extras.batwatch
         eza
+        file
         hyprpaper
         systemd
         wofi
+        yazi
         zoxide
       ];
       programs = {
@@ -52,7 +53,7 @@ in
           enableCompletion = true;
           autosuggestion.enable = true;
           autocd = true;
-          dotDir = "./config/zsh";
+          dotDir = ".config/zsh";
           shellAliases = {
             c = "clear";
             ga = "git add -A";
@@ -69,6 +70,16 @@ in
             size = 1000;
             path = "${user.home}/zsh/history";
           };
+          initExtra = ''
+            function yy() {
+            local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+            yazi "$@" --cwd-file="$tmp"
+            if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+                builtin cd -- "$cwd"
+            fi
+            rm -f -- "$tmp"
+            }
+          '';
           plugins = [
             {
               name = "zsh-autosuggestions";
@@ -94,6 +105,19 @@ in
           settings = {
             relativenumber = true;
             number = true;
+          };
+        };
+        yazi = {
+          enable = true;
+          enableZshIntegration = true;
+          settings = {
+            manager = {
+              show_hidden = true;
+            };
+            preview = {
+              max_width = 1000;
+              max_height = 1000;
+            };
           };
         };
       };
