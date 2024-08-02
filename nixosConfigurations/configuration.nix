@@ -53,6 +53,10 @@
     home-manager
     systemd
     swww
+    (pkgs.waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    })
+    )
   ];
   fonts.packages = with pkgs; [ nerdfonts dejavu_fonts noto-fonts-emoji ];
   users.defaultUserShell = pkgs.zsh;
@@ -67,4 +71,16 @@
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.nvidiaSettings = true;
   services.getty.autologinUser = "laged";
+  # waybar etc.
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  sound.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 }

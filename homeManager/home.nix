@@ -120,19 +120,63 @@ in
             };
           };
         };
+        waybar = {
+          enable = true;
+          settings = [
+            {
+              layer = "top";
+              position = "top";
+              output = [
+                "DP-1"
+                "DP-3"
+              ];
+              modules-left = [ "hyprland/workspaces" ];
+              modules-center = [ "hyprland/window" ];
+              modules-right = [ "clock" ];
+              "hyprland/workspaces" = {
+                "format" = "{icon}";
+                "on-scroll-up" = "hyprctl dispatch workspace e+1";
+                "on-scroll-down" = "hyprctl dispatch workspace e-1";
+                "active-only" = false;
+                "all-outputs" = false;
+                "disable-scroll" = false;
+                "persistent_workspaces" = {
+                  "1" = [];
+                  "2" = [];
+                  "3" = [];
+                  "4" = [];
+                  "5" = [];
+                  "6" = [];
+                  "7" = [];
+                  "8" = [];
+                  "9" = [];
+                  "10" = [];
+                };
+                "sort-by-number" = true;
+              };
+            }];
+            style = ''
+              ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
+              window#waybar, #clock {
+              background: transparent;
+              font-family: "FiraCode Nerd Font";
+              border-bottom: none;
+              }
+            '';
+          };
+        };
+        home.file.wallpapers = {
+          source = ./wallpapers;
+          target = "/home/laged/wallpapers";
+          recursive = true;
+        };
+        home.file.hyprstart = {
+          source = ./.config/hypr/hyprstart.sh;
+          target = "/home/laged/.config/hypr/hyprstart.sh";
+        };
+        wayland.windowManager.hyprland = {
+          enable = true;
+          extraConfig = builtins.readFile ./.config/hypr/hyprland.conf;
+        };
       };
-      home.file.wallpapers = {
-        source = ./wallpapers;
-        target = "/home/laged/wallpapers";
-        recursive = true;
-      };
-      home.file.hyprstart = {
-        source = ./.config/hypr/hyprstart.sh;
-        target = "/home/laged/.config/hypr/hyprstart.sh";
-      };
-      wayland.windowManager.hyprland = {
-        enable = true;
-        extraConfig = builtins.readFile ./.config/hypr/hyprland.conf;
-      };
-    };
-  }
+    }
