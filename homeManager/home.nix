@@ -1,5 +1,6 @@
 { inputs
 , pkgs
+, lib
 , ...
 }:
 let
@@ -28,6 +29,7 @@ in
       eza
       file
       hyprpaper
+      nil
       systemd
       wofi
       yazi
@@ -42,6 +44,37 @@ in
         userEmail = "${user.email}";
       };
       eza.enable = true;
+      helix = {
+        enable = true;
+          settings = {
+          theme = lib.mkForce "sonokai";
+          editor = {
+            line-number = "relative";
+            auto-completion = true;
+            auto-save = true;
+            auto-format = true;
+            shell = ["zsh"];
+            cursorline = true;
+            bufferline = "multiple";
+            gutters = [ "diff" "diagnostics" "line-numbers" "spacer"];
+            lsp = {
+              enable = true;
+              auto-signature-help = true;
+              display-messages = true;
+              display-inlay-hints = true;
+            };
+            indent-guides = {
+              render = true;
+              character = "┊";
+              skip-levels = 1;
+            };
+          };
+        };
+        languages.language = [{
+          name = "rust";
+          auto-format = true;
+        }];
+      };
       kitty = {
         enable = true;
         shellIntegration.enableZshIntegration = true;

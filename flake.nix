@@ -23,6 +23,7 @@
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     homestakeros-base.url = "github:ponkila/homestakeros?dir=nixosModules/base";
     nixpkgs.url = "github:NixOS/nixpkgs/24.05";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sounds.inputs.nixpkgs.follows = "nixpkgs";
@@ -58,7 +59,10 @@
 
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [ self.overlays.default ];
+            overlays = [
+              self.overlays.default
+              (import inputs.rust-overlay)
+            ];
             config = { };
           };
 
@@ -83,12 +87,20 @@
                 git
                 jq
                 nix
+                protobuf
                 ripgrep
                 rsync
                 sops
                 ssh-to-age
                 zstd
+                (pkgs.rust-bin.stable.latest.default.override {
+                  extensions = [ "rust-src" "cargo" "rustc" "rust-analyzer" "clippy" ];
+                })
               ];
+              PROTOC = "${pkgs.protobuf}/bin/protoc";
+              RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.default.override {
+                extensions = [ "rust-src" ];
+              }}/lib/rustlib/src/rust/library";
             };
           };
 

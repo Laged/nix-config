@@ -49,7 +49,9 @@
   };
   environment.shells = [ pkgs.zsh ];
   environment.systemPackages = with pkgs; [
+    helix
     home-manager
+    nixd
     systemd
     swww
     (pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -57,7 +59,11 @@
     })
     )
   ];
-  fonts.packages = with pkgs; [ nerdfonts dejavu_fonts noto-fonts-emoji ];
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    dejavu_fonts
+    noto-fonts-emoji
+  ];
   users.defaultUserShell = pkgs.zsh;
   hardware.enableRedistributableFirmware = true;
   hardware.opengl = {
