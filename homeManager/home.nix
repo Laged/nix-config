@@ -36,6 +36,11 @@ in
       zoxide
     ];
     programs = {
+      direnv = {
+        enable = true;
+        enableZshIntegration = true;
+        nix-direnv.enable = true;
+      };
       gh.enable = true;
       wofi.enable = true;
       git = {
