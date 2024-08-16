@@ -21,6 +21,7 @@
       group = "laged";
       initialPassword = "matti";
       extraGroups = [
+        "docker"
         "wheel"
         "video"
         "input"

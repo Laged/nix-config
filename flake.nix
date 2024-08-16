@@ -23,6 +23,8 @@
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     homestakeros-base.url = "github:ponkila/homestakeros?dir=nixosModules/base";
     nixpkgs.url = "github:NixOS/nixpkgs/24.05";
+    portainer-on-nixos.url = "gitlab:cbleslie/portainer-on-nixos";
+    portainer-on-nixos.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.url = "github:oxalica/rust-overlay";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -120,6 +122,8 @@
             };
             modules = [
               inputs.stylix.nixosModules.stylix
+              inputs.portainer-on-nixos.nixosModules.portainer
+              inputs.portainer-on-nixos.nixosModules.edge-agent
               ./homeManager/home.nix
               ./nixosConfigurations/configuration.nix
               inputs.home-manager.nixosModules.home-manager
@@ -129,6 +133,18 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.backupFileExtension = "hm-backup";
                 nixpkgs.overlays = [ inputs.wayland.overlay ];
+                services.portainer = {
+                  enable = true;
+                  version = "latest";
+                  port = 9443;
+                };
+                services.portainer-edge-agent = {
+                  enable = true;
+                  version = "latest";
+                  id = "TODO";
+                  key = "TODO";
+                  port = 9443;
+                };
               }
             ];
           };

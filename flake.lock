@@ -595,6 +595,26 @@
         "type": "github"
       }
     },
+    "portainer-on-nixos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703706314,
+        "narHash": "sha256-HfOOw9OqqAUsDbARb/577YnqvT2Fg4ph/+BQBcFdfO0=",
+        "owner": "cbleslie",
+        "repo": "portainer-on-nixos",
+        "rev": "a5e90f73951ad775164c7e840cfa0510f08a5ce8",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "cbleslie",
+        "repo": "portainer-on-nixos",
+        "type": "gitlab"
+      }
+    },
     "purescript-overlay": {
       "inputs": {
         "nixpkgs": [
@@ -642,6 +662,7 @@
         "home-manager": "home-manager",
         "homestakeros-base": "homestakeros-base",
         "nixpkgs": "nixpkgs_3",
+        "portainer-on-nixos": "portainer-on-nixos",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix",
         "sounds": "sounds",
