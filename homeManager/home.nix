@@ -17,16 +17,13 @@ in
   };
   stylix = {
     enable = true;
-    image = ./wallpaper.png;
+    image = ./cat.jpg;
   };
   home-manager.users.laged = {
     home.username = "${user.name}";
     home.homeDirectory = "${user.home}";
     home.stateVersion = "24.05";
     home.packages = with pkgs; [
-      (pkgs.nerdfonts.override {
-        fonts = [ "DejaVu Sans" "Noto Color Emoji" ];
-      })
       bat
       bat-extras.batdiff
       bat-extras.batwatch
