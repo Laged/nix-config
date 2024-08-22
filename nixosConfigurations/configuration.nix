@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 {
   imports = [ ./nix-settings.nix ];
@@ -27,7 +26,7 @@
       packages = with pkgs; [
         kitty
         firefox
-      ]; 
+      ];
     };
     groups.laged = {
       gid = 1000;

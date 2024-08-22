@@ -45,11 +45,10 @@
       ];
 
       perSystem =
-        {
-          pkgs,
-          config,
-          system,
-          ...
+        { pkgs
+        , config
+        , system
+        , ...
         }:
         {
 
