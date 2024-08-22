@@ -27,6 +27,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sounds.inputs.nixpkgs.follows = "nixpkgs";
     sounds.url = "github:jhvst/nix-config?dir=packages/sounds";
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wayland.inputs.nixpkgs.follows = "nixpkgs";
@@ -103,6 +105,7 @@
               inherit inputs outputs;
             };
             modules = [
+              inputs.stylix.nixosModules.stylix
               ./homeManager/home.nix
               ./nixosConfigurations/configuration.nix
               inputs.home-manager.nixosModules.home-manager

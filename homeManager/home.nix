@@ -14,11 +14,10 @@ in
 
   fonts = {
     fontconfig.enable = true;
-    defaultFonts = {
-      monospace = [ "FiraCode Nerd Font" ];
-      sans = [ "FiraCode Nerd Font" ];
-      serif = [ "FiraCode Nerd Font" ];
-    };
+  };
+  stylix = {
+    enable = true;
+    image = ./wallpaper.png;
   };
   home-manager.users.laged = {
     home.username = "${user.name}";
@@ -26,7 +25,7 @@ in
     home.stateVersion = "24.05";
     home.packages = with pkgs; [
       (pkgs.nerdfonts.override {
-        fonts = [ "FiraCode" "DroidSansMono" ];
+        fonts = [ "DejaVu Sans" "Noto Color Emoji" ];
       })
       bat
       bat-extras.batdiff
