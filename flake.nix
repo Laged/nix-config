@@ -58,9 +58,7 @@
             config = { };
           };
 
-          overlayAttrs = {
-            inherit (config.packages);
-          };
+          overlayAttrs = { };
 
           treefmt.config = {
             projectRootFile = "flake.nix";

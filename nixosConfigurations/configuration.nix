@@ -37,6 +37,9 @@
     wheelNeedsPassword = lib.mkForce false;
   };
   boot.kernelParams = [ "boot.shell_on_fail" ];
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+  ];
   services.dbus.enable = true;
   programs = {
     zsh.enable = true;

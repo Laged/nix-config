@@ -12,11 +12,22 @@ in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
+  fonts = {
+    fontconfig.enable = true;
+    defaultFonts = {
+      monospace = [ "FiraCode Nerd Font" ];
+      sans = [ "FiraCode Nerd Font" ];
+      serif = [ "FiraCode Nerd Font" ];
+    };
+  };
   home-manager.users.laged = {
     home.username = "${user.name}";
     home.homeDirectory = "${user.home}";
     home.stateVersion = "24.05";
     home.packages = with pkgs; [
+      (pkgs.nerdfonts.override {
+        fonts = [ "FiraCode" "DroidSansMono" ];
+      })
       bat
       bat-extras.batdiff
       bat-extras.batwatch
