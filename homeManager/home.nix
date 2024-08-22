@@ -32,11 +32,15 @@ in
         userName = "${user.name}";
         userEmail = "${user.email}";
       };
+      helix =
+        {
+          enable = true;
+        };
       eza.enable = true;
       zsh = {
         enable = true;
         enableCompletion = true;
-        enableAutosuggestions = true;
+        autosuggestion.enable = true;
         autocd = true;
         dotDir = "./config/zsh";
         shellAliases = {
