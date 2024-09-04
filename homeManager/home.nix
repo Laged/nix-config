@@ -21,14 +21,20 @@ in
     home.username = "${user.name}";
     home.homeDirectory = "${user.home}";
     home.stateVersion = "24.05";
+    nix.extraOptions = ''
+      extra-substituters = https://devenv.cachix.org https://cache.nixos.org https://nix-community.cachix.org https://nixpkgs-wayland.cachix.org
+      extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA=
+    '';
     home.packages = with pkgs; [
       hello
       bat
       bat-extras.batdiff
       bat-extras.batwatch
+      nodePackages.bash-language-server
       eza
       file
       hyprpaper
+      nmap
       nil
       systemd
       wofi
@@ -51,17 +57,17 @@ in
       eza.enable = true;
       helix = {
         enable = true;
-          settings = {
+        settings = {
           theme = lib.mkForce "sonokai";
           editor = {
             line-number = "relative";
             auto-completion = true;
             auto-save = true;
             auto-format = true;
-            shell = ["zsh"];
+            shell = [ "zsh" ];
             cursorline = true;
             bufferline = "multiple";
-            gutters = [ "diff" "diagnostics" "line-numbers" "spacer"];
+            gutters = [ "diff" "diagnostics" "line-numbers" "spacer" ];
             lsp = {
               enable = true;
               auto-signature-help = true;
@@ -75,14 +81,23 @@ in
             };
           };
         };
-        languages.language = [{
-          name = "rust";
-          auto-format = true;
-        }];
+        languages.language = [
+          {
+            name = "rust";
+            auto-format = true;
+          }
+          {
+            name = "bash";
+            auto-format = true;
+          }
+        ];
       };
       kitty = {
         enable = true;
         shellIntegration.enableZshIntegration = true;
+        settings = {
+          window_padding_width = 8;
+        };
       };
       zsh = {
         enable = true;

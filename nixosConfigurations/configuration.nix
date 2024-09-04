@@ -24,11 +24,14 @@
         "wheel"
         "video"
         "input"
+        "docker"
       ];
       shell = pkgs.zsh;
       packages = with pkgs; [
         kitty
         firefox
+        tldr
+        devenv
       ];
     };
     groups.laged = {
@@ -81,6 +84,7 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   sound.enable = true;
   security.rtkit.enable = true;
+  virtualisation.docker.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
